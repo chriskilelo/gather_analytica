@@ -15,6 +15,17 @@ class CreatePollVotesTable extends Migration
     {
         Schema::create('poll_votes', function (Blueprint $table) {
             $table->id();
+            // Below is a foreign key linking this table to the polls table
+            $table->foreignId('poll_id')->constrained('polls');
+            // Below is a foreign key linking this table to the [poll questions] table
+            $table->foreignId('poll_question_id')->constrained('poll_questions');
+            // Below is a foreign key linking this table to the [poll answers] table
+            $table->foreignId('poll_answer_id')->constrained('poll_answers');
+            // Below is a foreign key linking this table to the [users] table
+            $table->foreignId('user_id')->constrained('users');
+            // Active flag
+            $table->boolean('is_active')->default(true);
+            // System generated time stamps
             $table->timestamps();
         });
     }

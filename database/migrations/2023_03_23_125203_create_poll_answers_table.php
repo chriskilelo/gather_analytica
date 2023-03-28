@@ -15,6 +15,9 @@ class CreatePollAnswersTable extends Migration
     {
         Schema::create('poll_answers', function (Blueprint $table) {
             $table->id();
+            $table->string('answer');
+            $table->boolean('is_active')->default(false);
+            $table->foreignId('poll_question_id')->constrained('poll_questions');
             $table->timestamps();
         });
     }
