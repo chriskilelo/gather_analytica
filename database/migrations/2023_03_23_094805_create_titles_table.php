@@ -15,6 +15,8 @@ class CreateTitlesTable extends Migration
     {
         Schema::create('titles', function (Blueprint $table) {
             $table->id();
+            // The [account_id] column helps to segregate the data in the DB based on the respective organizational accounts.
+            $table->integer('account_id')->index();
             $table->string('title_name', 25);
             $table->string('description', 255)->nullable();
             $table->boolean('is_active')->default(false);

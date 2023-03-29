@@ -15,6 +15,8 @@ class CreatePollsTable extends Migration
     {
         Schema::create('polls', function (Blueprint $table) {
             $table->id();
+            // The [account_id] column helps to segregate the data in the DB based on the respective organizational accounts.
+            $table->integer('account_id')->index();
             $table->string('title', 100);
             $table->string('description', 255);
             $table->date('start_date')->useCurrent();

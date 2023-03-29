@@ -15,6 +15,8 @@ class CreatePollAnswersTable extends Migration
     {
         Schema::create('poll_answers', function (Blueprint $table) {
             $table->id();
+            // The [account_id] column helps to segregate the data in the DB based on the respective organizational accounts.
+            $table->integer('account_id')->index();
             $table->string('answer');
             $table->boolean('is_active')->default(false);
             $table->foreignId('poll_question_id')->constrained('poll_questions');

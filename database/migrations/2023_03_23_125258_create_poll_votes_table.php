@@ -15,6 +15,8 @@ class CreatePollVotesTable extends Migration
     {
         Schema::create('poll_votes', function (Blueprint $table) {
             $table->id();
+            // The [account_id] column helps to segregate the data in the DB based on the respective organizational accounts.
+            $table->integer('account_id')->index();
             // Below is a foreign key linking this table to the polls table
             $table->foreignId('poll_id')->constrained('polls');
             // Below is a foreign key linking this table to the [poll questions] table
