@@ -14,7 +14,12 @@ class PollFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'account_id' => 1,
+            'title' => $this->faker->sentence(4, true),
+            'description' => $this->faker->text(95),
+            'start_date' => $this->faker->dateTime(),
+            'end_date' => $this->faker->dateTime(),
+            'is_active' => $this->faker->boolean(80),
         ];
     }
 }

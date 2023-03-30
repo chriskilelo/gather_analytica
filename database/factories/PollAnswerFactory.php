@@ -14,7 +14,10 @@ class PollAnswerFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'account_id' => 1,
+            'answer' => $this->faker->sentence(4, true),
+            'is_active' => $this->faker->boolean(80),
+            'poll_question_id' => $this->faker->numberBetween(1, 20)
         ];
     }
 }

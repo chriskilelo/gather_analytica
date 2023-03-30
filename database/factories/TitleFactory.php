@@ -14,7 +14,7 @@ class TitleFactory extends Factory
     public function definition()
     {
         return [
-            //
+            // 
         ];
     }
 }

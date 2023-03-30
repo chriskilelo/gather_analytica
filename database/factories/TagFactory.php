@@ -14,7 +14,9 @@ class TagFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'account_id' => 1,
+            'tag_name' => $this->faker->words(mt_rand(2, 6), true),
+            'is_active' => $this->faker->boolean(80),
         ];
     }
 }

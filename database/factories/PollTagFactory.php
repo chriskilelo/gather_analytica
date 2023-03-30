@@ -14,7 +14,9 @@ class PollTagFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'account_id' => 1,
+            'poll_id' => $this->faker->numberBetween(1, 20),
+            'tag_id' => $this->faker->numberBetween(1, 20),
         ];
     }
 }
