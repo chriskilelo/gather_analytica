@@ -5,12 +5,12 @@ namespace Database\Seeders;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Organization;
-use App\Models\poll;
-use App\Models\poll_answer;
-use App\Models\poll_question;
-use App\Models\poll_tag;
-use App\Models\poll_vote;
-use App\Models\tag;
+use App\Models\Poll;
+use App\Models\PollAnswer;
+use App\Models\PollQuestion;
+use App\Models\PollTag;
+use App\Models\PollVote;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -47,25 +47,25 @@ class DatabaseSeeder extends Seeder
 
 
         // Create sample data thorough a factory for [Polls]
-        $polls = poll::factory(3)->create(['account_id' => $account->id]);
+        Poll::factory(300)->create(['account_id' => $account->id]);
 
         // Create sample data thorough a factory for [Tags]
-        $tags = tag::factory(20)->create(['account_id' => $account->id]);
+        $tags = Tag::factory(300)->create(['account_id' => $account->id]);
 
         // Create sample data thorough a factory for [Poll Questions]
-        $pollQuestions = poll_question::factory(20)->create(['account_id' => $account->id]);
+        $pollQuestions = PollQuestion::factory(20)->create(['account_id' => $account->id]);
 
-        // // Create sample data thorough a factory for [Poll Answers]
-        // $pollAnswers = poll_answer::factory(20)
-        //     ->create(['account_id' => $account->id])
-        //     ->each(function ($pollAnswer) use ($pollQuestions) {
-        //         $pollAnswer->update(['poll_question_id' => $pollQuestions->random()->id]);
-        //     });
+        // Create sample data thorough a factory for [Poll Answers]
+        $pollAnswers = PollAnswer::factory(20)
+            ->create(['account_id' => $account->id])
+            ->each(function ($pollAnswer) use ($pollQuestions) {
+                $pollAnswer->update(['poll_question_id' => $pollQuestions->random()->id]);
+            });
 
-        // // Create sample data thorough a factory for [Poll Votes]
-        // $pollVotes = poll_vote::factory(20)->create(['account_id' => $account->id]);
+        // Create sample data thorough a factory for [Poll Votes]
+        $pollVotes = PollVote::factory(100)->create(['account_id' => $account->id]);
 
-        // // Create sample data thorough a factory for [Poll Tags]
-        // $pollTags = poll_tag::factory(20)->create(['account_id' => $account->id]);
+        // Create sample data thorough a factory for [Poll Tags]
+        $pollTags = PollTag::factory(50)->create(['account_id' => $account->id]);
     }
 }

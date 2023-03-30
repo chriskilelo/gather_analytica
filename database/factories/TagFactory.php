@@ -15,7 +15,7 @@ class TagFactory extends Factory
     {
         return [
             'account_id' => 1,
-            'tag_name' => $this->faker->words(mt_rand(2, 6), true),
+            'tag_name' => $this->faker->words(mt_rand(1, 2), true),
             'is_active' => $this->faker->boolean(80),
         ];
     }

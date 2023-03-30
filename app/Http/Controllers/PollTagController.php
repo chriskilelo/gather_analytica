@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\poll_tag;
+use App\Models\PollTag;
 use Illuminate\Http\Request;
 
 class PollTagController extends Controller
@@ -44,7 +44,7 @@ class PollTagController extends Controller
      * @param  \App\Models\poll_tag  $poll_tag
      * @return \Illuminate\Http\Response
      */
-    public function show(poll_tag $poll_tag)
+    public function show(PollTag $poll_tag)
     {
         //
     }
@@ -55,7 +55,7 @@ class PollTagController extends Controller
      * @param  \App\Models\poll_tag  $poll_tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(poll_tag $poll_tag)
+    public function edit(PollTag $poll_tag)
     {
         //
     }
@@ -67,7 +67,7 @@ class PollTagController extends Controller
      * @param  \App\Models\poll_tag  $poll_tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, poll_tag $poll_tag)
+    public function update(Request $request, PollTag $poll_tag)
     {
         //
     }
@@ -78,7 +78,7 @@ class PollTagController extends Controller
      * @param  \App\Models\poll_tag  $poll_tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(poll_tag $poll_tag)
+    public function destroy(PollTag $poll_tag)
     {
         //
     }
