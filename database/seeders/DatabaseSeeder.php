@@ -50,22 +50,22 @@ class DatabaseSeeder extends Seeder
         Poll::factory(300)->create(['account_id' => $account->id]);
 
         // Create sample data thorough a factory for [Tags]
-        $tags = Tag::factory(300)->create(['account_id' => $account->id]);
+        Tag::factory(300)->create(['account_id' => $account->id]);
 
         // Create sample data thorough a factory for [Poll Questions]
-        $pollQuestions = PollQuestion::factory(20)->create(['account_id' => $account->id]);
+        $pollQuestions = PollQuestion::factory(100)->create(['account_id' => $account->id]);
 
         // Create sample data thorough a factory for [Poll Answers]
-        $pollAnswers = PollAnswer::factory(20)
+        PollAnswer::factory(2000)
             ->create(['account_id' => $account->id])
             ->each(function ($pollAnswer) use ($pollQuestions) {
                 $pollAnswer->update(['poll_question_id' => $pollQuestions->random()->id]);
             });
 
         // Create sample data thorough a factory for [Poll Votes]
-        $pollVotes = PollVote::factory(100)->create(['account_id' => $account->id]);
+        PollVote::factory(500)->create(['account_id' => $account->id]);
 
         // Create sample data thorough a factory for [Poll Tags]
-        $pollTags = PollTag::factory(50)->create(['account_id' => $account->id]);
+        PollTag::factory(150)->create(['account_id' => $account->id]);
     }
 }
