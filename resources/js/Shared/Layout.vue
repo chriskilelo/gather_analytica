@@ -6,7 +6,7 @@
         <div class="md:flex md:flex-shrink-0">
           <div class="flex items-center justify-between px-6 py-4 bg-indigo-900 md:flex-shrink-0 md:justify-center md:w-56">
             <Link class="mt-1" href="/">
-              <logo class="fill-white" width="120" height="28" />
+              <LogoWhite class="fill-white" width="120" height="50" />
             </Link>
             <dropdown class="md:hidden" placement="bottom-end">
               <template #default>
@@ -59,6 +59,7 @@ import Icon from '@/Shared/Icon'
 import Logo from '@/Shared/Logo'
 import Dropdown from '@/Shared/Dropdown'
 import MainMenu from '@/Shared/MainMenu'
+import LogoWhite from '@/Shared/Images/gather_analytica_logo_main_white'
 import FlashMessages from '@/Shared/FlashMessages'
 
 export default {
@@ -68,6 +69,7 @@ export default {
     Icon,
     Link,
     Logo,
+    LogoWhite,
     MainMenu,
   },
   props: {
