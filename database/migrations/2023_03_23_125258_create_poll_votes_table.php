@@ -29,6 +29,7 @@ class CreatePollVotesTable extends Migration
             $table->boolean('is_active')->default(true);
             // System generated time stamps
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

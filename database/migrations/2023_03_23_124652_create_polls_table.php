@@ -23,6 +23,7 @@ class CreatePollsTable extends Migration
             $table->date('end_date')->useCurrent();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

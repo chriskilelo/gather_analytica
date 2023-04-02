@@ -20,6 +20,7 @@ class CreateTagsTable extends Migration
             $table->string('tag_name', 200);
             $table->boolean('is_active')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

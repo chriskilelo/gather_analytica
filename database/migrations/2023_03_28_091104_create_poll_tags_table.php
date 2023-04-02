@@ -22,6 +22,7 @@ class CreatePollTagsTable extends Migration
             // Below is a foreign key linking this table to the tags table
             $table->foreignId('tag_id')->constrained('tags');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // Rename the pivot table to have the proper name i.e. the names of the two tables involved in singular

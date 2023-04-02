@@ -21,6 +21,7 @@ class CreatePollQuestionsTable extends Migration
             $table->boolean('is_active')->default(false);
             $table->foreignId('poll_id')->constrained('polls');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
