@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\PollController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -140,3 +141,33 @@ Route::get('reports', [ReportsController::class, 'index'])
 Route::get('/img/{path}', [ImagesController::class, 'show'])
     ->where('path', '.*')
     ->name('image');
+
+
+// Polls operations
+Route::get('polls', [PollController::class, 'index'])
+    ->name('polls')
+    ->middleware('auth');
+
+Route::get('polls/create', [PollController::class, 'create'])
+    ->name('polls.create')
+    ->middleware('auth');
+
+Route::post('polls', [PollController::class, 'store'])
+    ->name('polls.store')
+    ->middleware('auth');
+
+Route::get('polls/{poll}/edit', [PollController::class, 'edit'])
+    ->name('polls.edit')
+    ->middleware('auth');
+
+Route::put('polls/{poll}', [PollController::class, 'update'])
+    ->name('polls.update')
+    ->middleware('auth');
+
+Route::delete('polls/{poll}', [PollController::class, 'destroy'])
+    ->name('polls.destroy')
+    ->middleware('auth');
+
+Route::put('polls/{poll}/restore', [PollController::class, 'restore'])
+    ->name('polls.restore')
+    ->middleware('auth');    

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\poll;
-use Illuminate\Http\Request;
+use App\Models\Poll;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
 
 class PollController extends Controller
 {
@@ -14,7 +16,23 @@ class PollController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Polls/Index', [ 
+            'filters' => Request::all('search', 'trashed'),
+            'polls' => Auth::user()->account->polls()
+                ->orderBy('title')
+                ->filter(Request::only('search', 'trashed'))
+                ->paginate(10)
+                ->withQueryString()
+                ->through(fn ($poll) => [
+                    'id' => $poll->id,
+                    'title' => $poll->title,
+                    'description' => $poll->description,
+                    'start_date' => $poll->start_date,
+                    'end_date' => $poll->end_date,
+                    'is_active' => $poll->is_active,
+                    'deleted_at' => $poll->deleted_at,
+                ]),
+        ]);
     }
 
     /**

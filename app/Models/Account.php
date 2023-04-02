@@ -20,4 +20,9 @@ class Account extends Model
     {
         return $this->hasMany(Contact::class);
     }
+
+    public function polls()
+    {
+        return $this->hasMany(Poll::class);
+    }
 }
