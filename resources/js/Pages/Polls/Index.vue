@@ -61,7 +61,7 @@
             </td>
           </tr>
           <tr v-if="polls.data.length === 0">
-            <td class="px-6 py-4 border-t" colspan="4">No poll has been created yet!</td>
+            <td class="px-6 py-4 border-t" colspan="4">No polls found!</td>
           </tr>
         </tbody>
       </table>
