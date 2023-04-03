@@ -53,7 +53,7 @@
             </td>
             <td class="border-t">
               <Link class="flex items-center px-6 py-4" :href="`/polls/${poll.id}/edit`" tabindex="-1">
-              {{ poll.is_active }}
+              {{ (poll.is_active == 1) ? 'Active' : 'Disabled' }}
               </Link>
             </td>
             <td class="w-px border-t">
