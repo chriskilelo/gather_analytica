@@ -21,9 +21,11 @@
       <table class="w-full whitespace-nowrap">
         <thead>
           <tr class="text-left font-bold">
-            <th class="pb-4 pt-6 px-6">Name</th>
-            <th class="pb-4 pt-6 px-6">City</th>
-            <th class="pb-4 pt-6 px-6" colspan="2">Phone</th>
+            <th class="pb-4 pt-6 px-6">Title</th>
+            <th class="pb-4 pt-6 px-6">Description</th>
+            <th class="pb-4 pt-6 px-6">Start Date</th>
+            <th class="pb-4 pt-6 px-6">End Date</th>
+            <th class="pb-4 pt-6 px-6" colspan="2">Active?</th>
           </tr>
         </thead>
         <tbody>
