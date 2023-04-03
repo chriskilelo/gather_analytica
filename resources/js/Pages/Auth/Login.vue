@@ -1,6 +1,6 @@
 <template>
   <Head title="Login" />
-  <div class="flex items-center justify-center p-6 min-h-screen bg-coronation-900">
+  <div class="flex items-center justify-center p-6 min-h-screen bg-coronation_purple-900">
     <div class="w-full max-w-md">
       <!-- <logo class="block mx-auto w-full max-w-xs fill-white" height="50" /> -->
       <LogoWhite class="block mx-auto w-full max-w-xs fill-white" height="85" />

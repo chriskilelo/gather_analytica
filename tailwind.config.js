@@ -20,7 +20,7 @@ module.exports = {
       yellow: colors.yellow,
       green: colors.green,
       gray: colors.blueGray,
-      coronation: {
+      coronation_purple: {
         100: '#C8C6F8',
         200: '#B1AEEA',
         300: '#9491D2',
@@ -31,7 +31,7 @@ module.exports = {
         800: '#282652',
         900: '#201E45',
       },
-      affluence: {
+      affluence_green: {
         100: '#CFEDCF',
         200: '#BEE3BE',
         300: '#BBDEBB',

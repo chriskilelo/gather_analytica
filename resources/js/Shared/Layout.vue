@@ -4,16 +4,19 @@
     <div class="md:flex md:flex-col">
       <div class="md:flex md:flex-col md:h-screen">
         <div class="md:flex md:flex-shrink-0">
-          <div class="flex items-center justify-between px-6 py-4 bg-indigo-900 md:flex-shrink-0 md:justify-center md:w-56">
+          <div
+            class="flex items-center justify-between px-6 py-4 bg-indigo-900 md:flex-shrink-0 md:justify-center md:w-56">
             <Link class="mt-1" href="/">
-              <LogoWhite class="fill-white" width="120" height="50" />
+            <LogoWhite class="fill-white" width="120" height="50" />
             </Link>
             <dropdown class="md:hidden" placement="bottom-end">
               <template #default>
-                <svg class="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
+                <svg class="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                </svg>
               </template>
               <template #dropdown>
-                <div class="mt-2 px-8 py-4 bg-indigo-800 rounded shadow-lg">
+                <div class="mt-2 px-8 py-4 bg-coronation_purple-900 rounded shadow-lg">
                   <main-menu />
                 </div>
               </template>
@@ -28,21 +31,24 @@
                     <span>{{ auth.user.first_name }}</span>
                     <span class="hidden md:inline">&nbsp;{{ auth.user.last_name }}</span>
                   </div>
-                  <icon class="w-5 h-5 fill-gray-700 group-hover:fill-indigo-600 focus:fill-indigo-600" name="cheveron-down" />
+                  <icon class="w-5 h-5 fill-gray-700 group-hover:fill-indigo-600 focus:fill-indigo-600"
+                    name="cheveron-down" />
                 </div>
               </template>
               <template #dropdown>
                 <div class="mt-2 py-2 text-sm bg-white rounded shadow-xl">
-                  <Link class="block px-6 py-2 hover:text-white hover:bg-indigo-500" :href="`/users/${auth.user.id}/edit`">My Profile</Link>
+                  <Link class="block px-6 py-2 hover:text-white hover:bg-indigo-500"
+                    :href="`/users/${auth.user.id}/edit`">My Profile</Link>
                   <Link class="block px-6 py-2 hover:text-white hover:bg-indigo-500" href="/users">Manage Users</Link>
-                  <Link class="block px-6 py-2 w-full text-left hover:text-white hover:bg-indigo-500" href="/logout" method="delete" as="button">Logout</Link>
+                  <Link class="block px-6 py-2 w-full text-left hover:text-white hover:bg-indigo-500" href="/logout"
+                    method="delete" as="button">Logout</Link>
                 </div>
               </template>
             </dropdown>
           </div>
         </div>
         <div class="md:flex md:flex-grow md:overflow-hidden">
-          <main-menu class="hidden flex-shrink-0 p-12 w-56 bg-indigo-800 overflow-y-auto md:block" />
+          <main-menu class="hidden flex-shrink-0 p-12 w-56 bg-coronation_purple-900 overflow-y-auto md:block" />
           <div class="px-4 py-8 md:flex-1 md:p-12 md:overflow-y-auto" scroll-region>
             <flash-messages />
             <slot />
