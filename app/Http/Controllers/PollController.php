@@ -19,7 +19,7 @@ class PollController extends Controller
         return Inertia::render('Polls/Index', [ 
             'filters' => Request::all('search', 'trashed'),
             'polls' => Auth::user()->account->polls()
-                ->orderBy('title')
+                ->orderBy('created_at')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate(10)
                 ->withQueryString()
