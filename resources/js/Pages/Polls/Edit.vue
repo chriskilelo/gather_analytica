@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <Head :title="form.title" />
     <h1 class="mb-8 text-3xl font-bold">
       <Link class="text-indigo-400 hover:text-indigo-600" href="/polls">Polls</Link>
@@ -11,10 +12,12 @@
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="update">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-          <text-input v-model="form.title" :error="form.errors.title" class="pb-8 pr-6 w-full lg:w-1/2" label="Title" />
-          <text-input v-model="form.description" :error="form.errors.description" class="pb-8 pr-6 w-full lg:w-1/2" label="Description" />
-          <text-input v-model="form.start_date" :error="form.errors.start_date" class="pb-8 pr-6 w-full lg:w-1/2" label="Start Date" />
-          <text-input v-model="form.end_date" :error="form.errors.end_date" class="pb-8 pr-6 w-full lg:w-1/2" label="End Date" />
+          <text-input v-model="form.title" :error="form.errors.title" class="pb-8 pr-6 w-full" label="Title" />
+          <textarea-input v-model="form.description" :error="form.errors.description" class="pb-8 pr-6 w-full" label="Description"/>
+          <text-input v-model="form.start_date" :error="form.errors.start_date" class="pb-8 pr-6 w-full lg:w-1/2"
+            label="Start Date" />
+          <text-input v-model="form.end_date" :error="form.errors.end_date" class="pb-8 pr-6 w-full lg:w-1/2"
+            label="End Date" />
           <!-- <text-input v-model="form.is_active" :error="form.errors.is_active" class="pb-8 pr-6 w-full lg:w-1/2" label="Active ?" /> -->
         </div>
         <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
@@ -31,9 +34,11 @@
           <th class="pb-4 pt-6 px-6">Question</th>
           <th class="pb-4 pt-6 px-6" colspan="2">Active?</th>
         </tr>
-        <tr v-for="pollQuestion in poll.pollQuestions" :key="pollQuestion.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
+        <tr v-for="pollQuestion in poll.pollQuestions" :key="pollQuestion.id"
+          class="hover:bg-gray-100 focus-within:bg-gray-100">
           <td class="border-t">
-            <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/pollQuestions/${pollQuestion.id}/edit`">
+            <Link class="flex items-center px-6 py-4 focus:text-indigo-500"
+              :href="`/pollQuestions/${pollQuestion.id}/edit`">
             {{ pollQuestion.question }}
             <icon v-if="pollQuestion.deleted_at" name="trash" class="flex-shrink-0 ml-2 w-3 h-3 fill-gray-400" />
             </Link>
@@ -62,6 +67,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3'
 import Icon from '@/Shared/Icon'
 import Layout from '@/Shared/Layout'
 import TextInput from '@/Shared/TextInput'
+import TextareaInput from '@/Shared/TextareaInput'
 import SelectInput from '@/Shared/SelectInput'
 import LoadingButton from '@/Shared/LoadingButton'
 import TrashedMessage from '@/Shared/TrashedMessage'
@@ -74,6 +80,7 @@ export default {
     LoadingButton,
     SelectInput,
     TextInput,
+    TextareaInput,
     TrashedMessage,
   },
   layout: Layout,
@@ -88,7 +95,7 @@ export default {
         description: this.poll.description,
         start_date: this.poll.start_date,
         end_date: this.poll.end_date,
-        // is_active: this.poll.is_active,
+        is_active: this.poll.is_active,
       }),
     }
   },
