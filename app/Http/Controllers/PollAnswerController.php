@@ -40,17 +40,6 @@ class PollAnswerController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PollAnswer  $pollAnswer
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PollAnswer $pollAnswer)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\PollAnswer  $pollAnswer
@@ -83,7 +72,8 @@ class PollAnswerController extends Controller
     {
         // Delete the model from the database
         $pollAnswer->delete();
-        return Redirect::back()->with('success', 'Poll answer deleted.');
+        // Redirect back with a success message
+        return Redirect::back()->with('success', 'Poll answer deleted successfully.');
     }
 
      /**
@@ -96,6 +86,7 @@ class PollAnswerController extends Controller
     {
         // Restore a soft-deleted model instance by making null the [deleted_at] column in the database
         $pollAnswer->restore();
-        return Redirect::back()->with('success', 'Poll answer restored.');
+        // Redirect back with a success message
+        return Redirect::back()->with('success', 'Poll answer restored successfully.');
     }
 }
