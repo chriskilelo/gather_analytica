@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\PollAnswerController;
 use App\Http\Controllers\PollController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
@@ -171,3 +172,33 @@ Route::delete('polls/{poll}', [PollController::class, 'destroy'])
 Route::put('polls/{poll}/restore', [PollController::class, 'restore'])
     ->name('polls.restore')
     ->middleware('auth');    
+
+
+// Poll Answers
+Route::get('poll_answers', [PollAnswerController::class, 'index'])
+->name('poll_answers')
+->middleware('auth');
+
+Route::get('poll_answers/create', [PollAnswerController::class, 'create'])
+->name('poll_answers.create')
+->middleware('auth');
+
+Route::post('poll_answers', [PollAnswerController::class, 'store'])
+->name('poll_answers.store')
+->middleware('auth');
+
+Route::get('poll_answers/{poll_answer}/edit', [PollAnswerController::class, 'edit'])
+->name('poll_answers.edit')
+->middleware('auth');
+
+Route::put('poll_answers/{poll_answer}', [PollAnswerController::class, 'update'])
+->name('poll_answers.update')
+->middleware('auth');
+
+Route::delete('poll_answers/{poll_answer}', [PollAnswerController::class, 'destroy'])
+->name('poll_answers.destroy')
+->middleware('auth');
+
+Route::put('poll_answers/{poll_answer}/restore', [PollAnswerController::class, 'restore'])
+->name('poll_answers.restore')
+->middleware('auth');
