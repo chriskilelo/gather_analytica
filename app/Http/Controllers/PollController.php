@@ -43,7 +43,7 @@ class PollController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Polls/Create');
     }
 
     /**
@@ -54,7 +54,17 @@ class PollController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Auth::user()->account->polls()->create(
+            Request::validate([
+                'title' => ['required', 'max:255'],
+                'description' => ['required', 'max:1000'],
+                'start_date' => ['required', 'max:30'],
+                'end_date' => ['required', 'max:30'],
+                'is_active' => ['nullable', 'boolean']
+            ])
+        );
+
+        return Redirect::route('polls')->with('success', 'Poll created successfully.');
     }
 
     /**
@@ -63,7 +73,7 @@ class PollController extends Controller
      * @param  \App\Models\Poll  $poll
      * @return \Illuminate\Http\Response
      */
-    public function show(poll $poll)
+    public function show(Poll $poll)
     {
         //
     }
@@ -109,7 +119,7 @@ class PollController extends Controller
             ])
         );
 
-        return Redirect::back()->with('success', 'Poll updated.');
+        return Redirect::back()->with('success', 'Poll updated successfully.');
     }
 
     /**
@@ -123,7 +133,7 @@ class PollController extends Controller
         // Delete the model from the database
         $poll->delete();
 
-        return Redirect::back()->with('success', 'Poll deleted.');
+        return Redirect::back()->with('success', 'Poll deleted successfully.');
     }
 
         /**
@@ -136,6 +146,6 @@ class PollController extends Controller
     {
         $poll->restore();
 
-        return Redirect::back()->with('success', 'Poll restored.');
+        return Redirect::back()->with('success', 'Poll restored successfully.');
     }
 }
