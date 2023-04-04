@@ -60,22 +60,11 @@ class PollController extends Controller
                 'description' => ['required', 'max:1000'],
                 'start_date' => ['required', 'max:30'],
                 'end_date' => ['required', 'max:30'],
-                'is_active' => ['nullable', 'boolean']
+                'is_active' => ['required', 'boolean']
             ])
         );
 
         return Redirect::route('polls')->with('success', 'Poll created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Poll  $poll
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Poll $poll)
-    {
-        //
     }
 
     /**
