@@ -23,4 +23,9 @@ class PollQuestion extends Model
         return $this->belongsTo(Poll::class);
     }
 
+    public function scopeOrderByDateModified($query)
+    {
+        $query->orderBy('created_at')->orderBy('updated_at');
+    }
+
 }

@@ -16,7 +16,7 @@ class PollController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Polls/Index', [ 
+        return Inertia::render('Polls/Index', [
             'filters' => Request::all('search', 'trashed'),
             'polls' => Auth::user()->account->polls()
                 ->orderBy('created_at')
@@ -75,7 +75,18 @@ class PollController extends Controller
      */
     public function edit(poll $poll)
     {
-        //
+        return Inertia::render('Polls/Edit', [
+            'poll' => [
+                'id' =>$poll->id,
+                'title' =>$poll->title,
+                'description' =>$poll->description,
+                'start_date' =>$poll->start_date,
+                'end_date' =>$poll->end_date,
+                'is_active' =>$poll->is_active,
+                'deleted_at' => $poll->deleted_at,
+                'pollQuestions' => $poll->pollQuestions()->orderByDateModified()->get()->map->only('id', 'question', 'is_active'),
+            ],
+        ]);
     }
 
     /**
