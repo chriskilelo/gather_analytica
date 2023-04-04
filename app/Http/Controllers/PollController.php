@@ -60,7 +60,7 @@ class PollController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\poll  $poll
+     * @param  \App\Models\Poll  $poll
      * @return \Illuminate\Http\Response
      */
     public function show(poll $poll)
@@ -71,19 +71,19 @@ class PollController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\poll  $poll
+     * @param  \App\Models\Poll  $poll
      * @return \Illuminate\Http\Response
      */
-    public function edit(poll $poll)
+    public function edit(Poll $poll)
     {
         return Inertia::render('Polls/Edit', [
             'poll' => [
-                'id' =>$poll->id,
-                'title' =>$poll->title,
-                'description' =>$poll->description,
-                'start_date' =>$poll->start_date,
-                'end_date' =>$poll->end_date,
-                'is_active' =>$poll->is_active,
+                'id' => $poll->id,
+                'title' => $poll->title,
+                'description' => $poll->description,
+                'start_date' => $poll->start_date,
+                'end_date' => $poll->end_date,
+                'is_active' => $poll->is_active,
                 'deleted_at' => $poll->deleted_at,
                 'pollQuestions' => $poll->pollQuestions()->orderByDateModified()->get()->map->only('id', 'question', 'is_active'),
             ],
@@ -94,10 +94,10 @@ class PollController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\poll  $poll
+     * @param  \App\Models\Poll  $poll
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, poll $poll)
+    public function update(Request $request, Poll $poll)
     {
         $poll->update(
             Request::validate([
@@ -115,11 +115,27 @@ class PollController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\poll  $poll
+     * @param  \App\Models\Poll  $poll
      * @return \Illuminate\Http\Response
      */
-    public function destroy(poll $poll)
+    public function destroy(Poll $poll)
     {
-        //
+        // Delete the model from the database
+        $poll->delete();
+
+        return Redirect::back()->with('success', 'Poll deleted.');
+    }
+
+        /**
+     * Restore the specified resource by emptying the [deleted_at] column
+     *
+     * @param  \App\Models\Poll  $poll
+     * @return \Illuminate\Http\Response
+     */
+    public function restore(Poll $poll)
+    {
+        $poll->restore();
+
+        return Redirect::back()->with('success', 'Poll restored.');
     }
 }
