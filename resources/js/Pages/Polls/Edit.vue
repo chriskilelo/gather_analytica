@@ -15,7 +15,7 @@
           <text-input v-model="form.description" :error="form.errors.description" class="pb-8 pr-6 w-full lg:w-1/2" label="Description" />
           <text-input v-model="form.start_date" :error="form.errors.start_date" class="pb-8 pr-6 w-full lg:w-1/2" label="Start Date" />
           <text-input v-model="form.end_date" :error="form.errors.end_date" class="pb-8 pr-6 w-full lg:w-1/2" label="End Date" />
-          <text-input v-model="form.is_active" :error="form.errors.is_active" class="pb-8 pr-6 w-full lg:w-1/2" label="Active ?" />
+          <!-- <text-input v-model="form.is_active" :error="form.errors.is_active" class="pb-8 pr-6 w-full lg:w-1/2" label="Active ?" /> -->
         </div>
         <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
           <button v-if="!poll.deleted_at" class="text-red-600 hover:underline" tabindex="-1" type="button"
@@ -88,13 +88,13 @@ export default {
         description: this.poll.description,
         start_date: this.poll.start_date,
         end_date: this.poll.end_date,
-        is_active: this.poll.is_active,
+        // is_active: this.poll.is_active,
       }),
     }
   },
   methods: {
     update() {
-      this.form.put(`/polls/1}`)
+      this.form.put(`/polls/${this.poll.id}`)
     },
     destroy() {
       if (confirm('Are you sure you want to delete this poll?')) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Poll;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
@@ -98,7 +99,17 @@ class PollController extends Controller
      */
     public function update(Request $request, poll $poll)
     {
-        //
+        $poll->update(
+            Request::validate([
+                'title' => ['required', 'max:255'],
+                'description' => ['required', 'max:1000'],
+                'start_date' => ['required', 'max:30'],
+                'end_date' => ['required', 'max:30'],
+                'is_active' => ['nullable', 'boolean'],
+            ])
+        );
+
+        return Redirect::back()->with('success', 'Poll updated.');
     }
 
     /**
