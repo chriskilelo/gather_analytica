@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\poll_answer;
+use App\Models\PollAnswer;
 use Illuminate\Http\Request;
 
 class PollAnswerController extends Controller
@@ -41,10 +41,10 @@ class PollAnswerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\poll_answer  $poll_answer
+     * @param  \App\Models\PollAnswer  $pollAnswer
      * @return \Illuminate\Http\Response
      */
-    public function show(poll_answer $poll_answer)
+    public function show(PollAnswer $pollAnswer)
     {
         //
     }
@@ -52,10 +52,10 @@ class PollAnswerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\poll_answer  $poll_answer
+     * @param  \App\Models\PollAnswer  $pollAnswer
      * @return \Illuminate\Http\Response
      */
-    public function edit(poll_answer $poll_answer)
+    public function edit(PollAnswer $pollAnswer)
     {
         //
     }
@@ -64,10 +64,10 @@ class PollAnswerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\poll_answer  $poll_answer
+     * @param  \App\Models\PollAnswer  $pollAnswer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, poll_answer $poll_answer)
+    public function update(Request $request, PollAnswer $pollAnswer)
     {
         //
     }
@@ -75,10 +75,10 @@ class PollAnswerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\poll_answer  $poll_answer
+     * @param  \App\Models\PollAnswer  $pollAnswer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(poll_answer $poll_answer)
+    public function destroy(PollAnswer $pollAnswer)
     {
         //
     }
