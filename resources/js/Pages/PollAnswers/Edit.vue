@@ -2,35 +2,24 @@
   <div>
     <Head :title="`${form.first_name} ${form.last_name}`" />
     <h1 class="mb-8 text-3xl font-bold">
-      <Link class="text-indigo-400 hover:text-indigo-600" href="/contacts">Contacts</Link>
+      <Link class="text-indigo-400 hover:text-indigo-600" href="/poll_answers">Poll Answers</Link>
       <span class="text-indigo-400 font-medium">/</span>
-      {{ form.first_name }} {{ form.last_name }}
+      {{ form.answer }}
     </h1>
-    <trashed-message v-if="contact.deleted_at" class="mb-6" @restore="restore"> This contact has been deleted. </trashed-message>
+    <trashed-message v-if="poll_answer.deleted_at" class="mb-6" @restore="restore"> This answer has been deleted. </trashed-message>
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="update">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-          <text-input v-model="form.first_name" :error="form.errors.first_name" class="pb-8 pr-6 w-full lg:w-1/2" label="First name" />
-          <text-input v-model="form.last_name" :error="form.errors.last_name" class="pb-8 pr-6 w-full lg:w-1/2" label="Last name" />
-          <select-input v-model="form.organization_id" :error="form.errors.organization_id" class="pb-8 pr-6 w-full lg:w-1/2" label="Organization">
+          <select-input v-model="form.poll_question_id" :error="form.errors.poll_question_id" class="pb-8 pr-6 w-full" label="Question">
             <option :value="null" />
-            <option v-for="organization in organizations" :key="organization.id" :value="organization.id">{{ organization.name }}</option>
+            <option v-for="poll_question in poll_questions" :key="poll_question.id" :value="poll_question.id">Poll {{ poll_question.poll_id }} - {{ poll_question.question }}</option>
           </select-input>
-          <text-input v-model="form.email" :error="form.errors.email" class="pb-8 pr-6 w-full lg:w-1/2" label="Email" />
-          <text-input v-model="form.phone" :error="form.errors.phone" class="pb-8 pr-6 w-full lg:w-1/2" label="Phone" />
-          <text-input v-model="form.address" :error="form.errors.address" class="pb-8 pr-6 w-full lg:w-1/2" label="Address" />
-          <text-input v-model="form.city" :error="form.errors.city" class="pb-8 pr-6 w-full lg:w-1/2" label="City" />
-          <text-input v-model="form.region" :error="form.errors.region" class="pb-8 pr-6 w-full lg:w-1/2" label="Province/State" />
-          <select-input v-model="form.country" :error="form.errors.country" class="pb-8 pr-6 w-full lg:w-1/2" label="Country">
-            <option :value="null" />
-            <option value="CA">Canada</option>
-            <option value="US">United States</option>
-          </select-input>
-          <text-input v-model="form.postal_code" :error="form.errors.postal_code" class="pb-8 pr-6 w-full lg:w-1/2" label="Postal code" />
+          <textarea-input v-model="form.answer" :error="form.errors.answer" class="pb-8 pr-6 w-full" label="Answer"/>
+          <text-input v-model="form.is_active" :error="form.errors.is_active" class="pb-8 pr-6 w-full lg:w-1/2" label="Active?" />
         </div>
         <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
-          <button v-if="!contact.deleted_at" class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Delete Contact</button>
-          <loading-button :loading="form.processing" class="btn-indigo ml-auto" type="submit">Update Contact</loading-button>
+          <button v-if="!poll_answer.deleted_at" class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Delete Answer</button>
+          <loading-button :loading="form.processing" class="btn-indigo ml-auto" type="submit">Update Answer</loading-button>
         </div>
       </form>
     </div>
@@ -41,6 +30,7 @@
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Shared/Layout'
 import TextInput from '@/Shared/TextInput'
+import TextareaInput from '@/Shared/TextInput'
 import SelectInput from '@/Shared/SelectInput'
 import LoadingButton from '@/Shared/LoadingButton'
 import TrashedMessage from '@/Shared/TrashedMessage'
@@ -52,42 +42,37 @@ export default {
     LoadingButton,
     SelectInput,
     TextInput,
+    TextareaInput,
     TrashedMessage,
   },
   layout: Layout,
   props: {
-    contact: Object,
-    organizations: Array,
+    poll_answer: Object,
+    poll_questions: Array,
   },
   remember: 'form',
   data() {
     return {
       form: this.$inertia.form({
-        first_name: this.contact.first_name,
-        last_name: this.contact.last_name,
-        organization_id: this.contact.organization_id,
-        email: this.contact.email,
-        phone: this.contact.phone,
-        address: this.contact.address,
-        city: this.contact.city,
-        region: this.contact.region,
-        country: this.contact.country,
-        postal_code: this.contact.postal_code,
+        answer: this.poll_answer.answer,
+        account_id: 1,
+        is_active: this.poll_answer.is_active,
+        poll_question_id: this.poll_answer.poll_question_id,
       }),
     }
   },
   methods: {
     update() {
-      this.form.put(`/contacts/${this.contact.id}`)
+      this.form.put(`/poll_answers/${this.poll_answer.id}`)
     },
     destroy() {
-      if (confirm('Are you sure you want to delete this contact?')) {
-        this.$inertia.delete(`/contacts/${this.contact.id}`)
+      if (confirm('Are you sure you want to delete this answer?')) {
+        this.$inertia.delete(`/poll_answers/${this.poll_answer.id}`)
       }
     },
     restore() {
-      if (confirm('Are you sure you want to restore this contact?')) {
-        this.$inertia.put(`/contacts/${this.contact.id}/restore`)
+      if (confirm('Are you sure you want to restore this answer?')) {
+        this.$inertia.put(`/poll_answers/${this.poll_answer.id}/restore`)
       }
     },
   },

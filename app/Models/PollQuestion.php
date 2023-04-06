@@ -25,7 +25,7 @@ class PollQuestion extends Model
 
     public function scopeOrderByDateModified($query)
     {
-        $query->orderBy('created_at')->orderBy('updated_at');
+        $query->orderBy('updated_at')->orderBy('created_at');
     }
 
 }

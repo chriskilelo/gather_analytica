@@ -24,19 +24,6 @@
           <th class="pb-4 pt-6 px-6">Question</th>
           <th class="pb-4 pt-6 px-6" colspan="2">Active?</th>
         </tr>
-
-        <!-- {
-    "id": 1,
-    "answer": "Sed est non corporis placeat.",
-    "is_active": 1,
-    "poll_question_id": 5,
-    "pollQuestion": {
-        "question": "Debitis consectetur qui sit.",
-        "id": 5,
-        "created_at": "2023-04-03T04:44:29.000000Z"
-    }
-} -->
-
         <tr v-for="poll_answer in poll_answers.data" :key="poll_answer.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
           <td class="border-t">
             <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/poll_answers/${poll_answer.id}/edit`">

@@ -6,6 +6,7 @@ use App\Models\PollAnswer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class PollAnswerController extends Controller
@@ -41,18 +42,14 @@ class PollAnswerController extends Controller
      */
     public function create()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return Inertia::render('PollAnswers/Create', [
+            'poll_questions' => Auth::user()->account
+                ->pollQuestions()
+                ->orderByDateModified('updated_at')
+                ->get()
+                ->map
+                ->only('id', 'question', 'poll_id'),
+        ]);
     }
 
     /**
@@ -63,7 +60,21 @@ class PollAnswerController extends Controller
      */
     public function edit(PollAnswer $pollAnswer)
     {
-        //
+        return Inertia::render('PollAnswers/Edit', [
+            'poll_answer' => [
+                'id' => $pollAnswer->id,
+                'account_id' => 1,
+                'answer' => $pollAnswer->answer,
+                'poll_question_id'=>$pollAnswer->poll_question_id,
+                'is_active' => $pollAnswer->is_active,
+                'deleted_at' => $pollAnswer->deleted_at,
+            ],
+            'poll_questions' => Auth::user()->account->pollQuestions()
+                ->orderByDateModified('updated_at')
+                ->get()
+                ->map
+                ->only('id', 'question', 'poll_id'),
+        ]);
     }
 
     /**
@@ -75,7 +86,19 @@ class PollAnswerController extends Controller
      */
     public function update(Request $request, PollAnswer $pollAnswer)
     {
-        //
+        $pollAnswer->update(
+            Request::validate([
+                'answer' => ['required', 'max:255'],
+                'is_active' => ['required', 'boolean'],
+                'poll_question_id' => [
+                    'nullable',
+                    Rule::exists('poll_questions', 'id')->where(fn ($query) => $query->where('account_id', Auth::user()->account_id)),
+                ],
+
+            ])
+        );
+
+        return Redirect::back()->with('success', 'Poll answer updated. :>)');
     }
 
     /**
