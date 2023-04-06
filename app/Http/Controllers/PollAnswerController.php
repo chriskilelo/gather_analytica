@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\PollAnswer;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
 
 class PollAnswerController extends Controller
 {
@@ -15,11 +17,25 @@ class PollAnswerController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('PollAnswers/Index', [
+            'filters' => Request::all('search', 'trashed'),
+            'poll_answers' => Auth::user()->account->pollAnswers()
+                ->with('pollQuestion')
+                ->orderByDateModified()
+                ->filter(Request::only('search', 'trashed'))
+                ->paginate(10)
+                ->withQueryString()
+                ->through(fn ($pollAnswer) => [
+                    'id' => $pollAnswer->id,
+                    'answer' => $pollAnswer->answer,
+                    'is_active' => $pollAnswer->is_active,
+                    'pollQuestion' => $pollAnswer->pollQuestion ? $pollAnswer->pollQuestion->only('id', 'question', 'poll_id', 'created_at') : null,
+                ]),
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource.   
      *
      * @return \Illuminate\Http\Response
      */
@@ -76,7 +92,7 @@ class PollAnswerController extends Controller
         return Redirect::back()->with('success', 'Poll answer deleted successfully.');
     }
 
-     /**
+    /**
      * Restore the specified model instance
      *
      * @param  \App\Models\PollAnswer  $pollAnswer

@@ -25,4 +25,9 @@ class Account extends Model
     {
         return $this->hasMany(Poll::class);
     }
+
+    public function pollAnswers()
+    {
+        return $this->hasMany(PollAnswer::class);
+    }
 }
