@@ -27,7 +27,7 @@
         <tr v-for="poll_answer in poll_answers.data" :key="poll_answer.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
           <td class="border-t">
             <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/poll_answers/${poll_answer.id}/edit`">
-              <icon v-if="poll_answer.deleted_at" name="trash" class="flex-shrink-0 ml-2 w-3 h-3 fill-gray-400" />
+              <icon v-if="poll_answer.deleted_at" name="trash" class="flex-shrink-0 ml-2 mr-1 w-3 h-3 fill-red-400" />
               {{ poll_answer.answer }}
             </Link>
           </td>

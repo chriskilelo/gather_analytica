@@ -30,6 +30,7 @@ class PollAnswerController extends Controller
                     'id' => $pollAnswer->id,
                     'answer' => $pollAnswer->answer,
                     'is_active' => $pollAnswer->is_active,
+                    'deleted_at' => $pollAnswer->deleted_at,
                     'pollQuestion' => $pollAnswer->pollQuestion ? $pollAnswer->pollQuestion->only('id', 'question', 'poll_id', 'created_at') : null,
                 ]),
         ]);
