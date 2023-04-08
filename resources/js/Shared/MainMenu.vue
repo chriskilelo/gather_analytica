@@ -13,6 +13,12 @@
       </Link>
     </div>
     <div class="mb-4">
+      <Link class="group flex items-center py-3" href="/poll_questions">
+        <icon name="office" class="mr-2 w-4 h-4" :class="isUrl('poll_questions') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('poll_questions') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Poll Questions</div>
+      </Link>
+    </div>    
+    <div class="mb-4">
       <Link class="group flex items-center py-3" href="/poll_answers">
         <icon name="users" class="mr-2 w-4 h-4" :class="isUrl('poll_answers') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
         <div :class="isUrl('poll_answers') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Poll Answers</div>
