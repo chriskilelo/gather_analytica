@@ -4,8 +4,8 @@
     <div class="md:flex md:flex-col">
       <div class="md:flex md:flex-col md:h-screen">
         <div class="md:flex md:flex-shrink-0">
-          <div
-            class="flex items-center justify-between px-6 py-4 bg-indigo-900 md:flex-shrink-0 md:justify-center md:w-56">
+          <div  
+            class="flex items-center justify-between px-6 py-4 bg-indigo-900 md:flex-shrink-0 md:justify-center md:w-60">
             <Link class="mt-1" href="/">
             <LogoWhite class="fill-white" width="120" height="50" />
             </Link>
@@ -16,7 +16,7 @@
                 </svg>
               </template>
               <template #dropdown>
-                <div class="mt-2 px-8 py-4 bg-coronation_purple-900 rounded shadow-lg">
+                <div class="mt-2 px-8 py-4  bg-coronation_purple-900 rounded shadow-lg">
                   <main-menu />
                 </div>
               </template>
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="md:flex md:flex-grow md:overflow-hidden">
-          <main-menu class="hidden flex-shrink-0 p-12 w-56 bg-coronation_purple-900 overflow-y-auto md:block" />
+          <main-menu class="hidden flex-shrink-0 p-12 w-70 bg-coronation_purple-900 overflow-y-auto md:block" />
           <div class="px-4 py-8 md:flex-1 md:p-12 md:overflow-y-auto" scroll-region>
             <flash-messages />
             <slot />
