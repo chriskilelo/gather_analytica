@@ -1,68 +1,59 @@
 <template>
   <div>
-    <Head :title="form.name" />
+    <Head :title="form.question" />
     <h1 class="mb-8 text-3xl font-bold">
-      <Link class="text-indigo-400 hover:text-indigo-600" href="/organizations">Organizations</Link>
+      <Link class="text-indigo-400 hover:text-indigo-600" href="/poll_questions">Poll Questions</Link>
       <span class="text-indigo-400 font-medium">/</span>
       {{ form.name }}
     </h1>
-    <trashed-message v-if="organization.deleted_at" class="mb-6" @restore="restore"> This organization has been deleted. </trashed-message>
+    <trashed-message v-if="poll_question.deleted_at" class="mb-6" @restore="restore"> This poll question has been deleted. </trashed-message>
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="update">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-          <text-input v-model="form.name" :error="form.errors.name" class="pb-8 pr-6 w-full lg:w-1/2" label="Name" />
-          <text-input v-model="form.email" :error="form.errors.email" class="pb-8 pr-6 w-full lg:w-1/2" label="Email" />
-          <text-input v-model="form.phone" :error="form.errors.phone" class="pb-8 pr-6 w-full lg:w-1/2" label="Phone" />
-          <text-input v-model="form.address" :error="form.errors.address" class="pb-8 pr-6 w-full lg:w-1/2" label="Address" />
-          <text-input v-model="form.city" :error="form.errors.city" class="pb-8 pr-6 w-full lg:w-1/2" label="City" />
-          <text-input v-model="form.region" :error="form.errors.region" class="pb-8 pr-6 w-full lg:w-1/2" label="Province/State" />
-          <select-input v-model="form.country" :error="form.errors.country" class="pb-8 pr-6 w-full lg:w-1/2" label="Country">
+          <textarea-input v-model="form.question" :error="form.errors.question" class="pb-8 pr-6 w-full" label="Question"/>
+          <select-input v-model="form.poll_id" :error="form.errors.poll_id" class="pb-8 pr-6 w-full" label="Poll">
             <option :value="null" />
-            <option value="CA">Canada</option>
-            <option value="US">United States</option>
+            <option v-for="poll in polls" :key="poll.id" :value="poll.id">
+              ({{ (poll.is_active) == '1' ? 'Active' : 'Closed'  }}) - {{ poll.title }}
+            </option>
           </select-input>
-          <text-input v-model="form.postal_code" :error="form.errors.postal_code" class="pb-8 pr-6 w-full lg:w-1/2" label="Postal code" />
+          <text-input v-model="form.is_active" :error="form.errors.is_active" class="pb-8 pr-6 w-full lg:w-1/2" label="Active ?" />
         </div>
         <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
-          <button v-if="!organization.deleted_at" class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Delete Organization</button>
-          <loading-button :loading="form.processing" class="btn-indigo ml-auto" type="submit">Update Organization</loading-button>
+          <button v-if="!poll_question.deleted_at" class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Delete Poll Question</button>
+          <loading-button :loading="form.processing" class="btn-indigo ml-auto" type="submit">Update Poll Question</loading-button>
         </div>
       </form>
     </div>
-    <h2 class="mt-12 text-2xl font-bold">Contacts</h2>
+    <h2 class="mt-12 text-2xl font-bold">Poll Answers</h2>
     <div class="mt-6 bg-white rounded shadow overflow-x-auto">
       <table class="w-full whitespace-nowrap">
         <tr class="text-left font-bold">
-          <th class="pb-4 pt-6 px-6">Name</th>
-          <th class="pb-4 pt-6 px-6">City</th>
-          <th class="pb-4 pt-6 px-6" colspan="2">Phone</th>
+          <th class="pb-4 pt-6 px-6">Answer</th>
+          <th class="pb-4 pt-6 px-6" colspan="2">Active?</th>
         </tr>
-        <tr v-for="contact in organization.contacts" :key="contact.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
+        <tr v-for="poll_answer in poll_question.pollAnswers" :key="poll_answer.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
           <td class="border-t">
-            <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/contacts/${contact.id}/edit`">
-              {{ contact.name }}
-              <icon v-if="contact.deleted_at" name="trash" class="flex-shrink-0 ml-2 w-3 h-3 fill-gray-400" />
+            <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/poll_answers/${poll_answer.id}/edit`">
+              <icon v-if="poll_answer.deleted_at" name="trash" class="flex-shrink-0 ml-2 w-3 h-3 fill-gray-400" />
+              {{ poll_answer.answer }}              
             </Link>
           </td>
           <td class="border-t">
-            <Link class="flex items-center px-6 py-4" :href="`/contacts/${contact.id}/edit`" tabindex="-1">
-              {{ contact.city }}
-            </Link>
-          </td>
-          <td class="border-t">
-            <Link class="flex items-center px-6 py-4" :href="`/contacts/${contact.id}/edit`" tabindex="-1">
-              {{ contact.phone }}
+            <Link class="flex items-center px-6 py-4" :href="`/poll_answers/${poll_answer.id}/edit`" tabindex="-1">
+              {{ poll_answer.is_active }}
             </Link>
           </td>
           <td class="w-px border-t">
-            <Link class="flex items-center px-4" :href="`/contacts/${contact.id}/edit`" tabindex="-1">
+            <Link class="flex items-center px-4" :href="`/poll_answers/${poll_answer.id}/edit`" tabindex="-1">
               <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
             </Link>
           </td>
         </tr>
-        <tr v-if="organization.contacts.length === 0">
-          <td class="px-6 py-4 border-t" colspan="4">No contacts found.</td>
+        <tr v-if="poll_question.pollAnswers.length === 0">
+          <td class="px-6 py-4 border-t" colspan="4">No answers found for this question.</td>
         </tr>
+  
       </table>
     </div>
   </div>
@@ -73,6 +64,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3'
 import Icon from '@/Shared/Icon'
 import Layout from '@/Shared/Layout'
 import TextInput from '@/Shared/TextInput'
+import TextareaInput from '@/Shared/TextareaInput'
 import SelectInput from '@/Shared/SelectInput'
 import LoadingButton from '@/Shared/LoadingButton'
 import TrashedMessage from '@/Shared/TrashedMessage'
@@ -85,39 +77,36 @@ export default {
     LoadingButton,
     SelectInput,
     TextInput,
+    TextareaInput,
     TrashedMessage,
   },
   layout: Layout,
   props: {
-    organization: Object,
+    poll_question: Object,
+    polls: Object,
   },
   remember: 'form',
   data() {
     return {
       form: this.$inertia.form({
-        name: this.organization.name,
-        email: this.organization.email,
-        phone: this.organization.phone,
-        address: this.organization.address,
-        city: this.organization.city,
-        region: this.organization.region,
-        country: this.organization.country,
-        postal_code: this.organization.postal_code,
+        question: this.poll_question.question,
+        poll_id: this.poll_question.poll_id,
+        is_active: this.poll_question.is_active,
       }),
     }
   },
   methods: {
     update() {
-      this.form.put(`/organizations/${this.organization.id}`)
+      this.form.put(`/poll_questions/${this.poll_question.id}`)
     },
     destroy() {
-      if (confirm('Are you sure you want to delete this organization?')) {
-        this.$inertia.delete(`/organizations/${this.organization.id}`)
+      if (confirm('Are you sure you want to delete this poll question?')) {
+        this.$inertia.delete(`/poll_questions/${this.poll_question.id}`)
       }
     },
     restore() {
-      if (confirm('Are you sure you want to restore this organization?')) {
-        this.$inertia.put(`/organizations/${this.organization.id}/restore`)
+      if (confirm('Are you sure you want to restore this poll question?')) {
+        this.$inertia.put(`/poll_questions/${this.poll_question.id}/restore`)
       }
     },
   },

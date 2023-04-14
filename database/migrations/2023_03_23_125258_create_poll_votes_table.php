@@ -25,7 +25,7 @@ class CreatePollVotesTable extends Migration
             $table->foreignId('poll_answer_id')->constrained('poll_answers');
             // Below is a foreign key linking this table to the [users] table
             $table->foreignId('user_id')->constrained('users');
-            // Active flag
+            // Activpoll_questionse flag
             $table->boolean('is_active')->default(true);
             // System generated time stamps
             $table->timestamps();

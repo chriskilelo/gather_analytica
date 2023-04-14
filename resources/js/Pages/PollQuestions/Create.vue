@@ -1,28 +1,22 @@
 <template>
   <div>
-    <Head title="Create Organization" />
+    <Head title="Create Poll Questions" />
     <h1 class="mb-8 text-3xl font-bold">
-      <Link class="text-indigo-400 hover:text-indigo-600" href="/organizations">Organizations</Link>
+      <Link class="text-indigo-400 hover:text-indigo-600" href="/poll_questions">Poll Questions</Link>
       <span class="text-indigo-400 font-medium">/</span> Create
     </h1>
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="store">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-          <text-input v-model="form.name" :error="form.errors.name" class="pb-8 pr-6 w-full lg:w-1/2" label="Name" />
-          <text-input v-model="form.email" :error="form.errors.email" class="pb-8 pr-6 w-full lg:w-1/2" label="Email" />
-          <text-input v-model="form.phone" :error="form.errors.phone" class="pb-8 pr-6 w-full lg:w-1/2" label="Phone" />
-          <text-input v-model="form.address" :error="form.errors.address" class="pb-8 pr-6 w-full lg:w-1/2" label="Address" />
-          <text-input v-model="form.city" :error="form.errors.city" class="pb-8 pr-6 w-full lg:w-1/2" label="City" />
-          <text-input v-model="form.region" :error="form.errors.region" class="pb-8 pr-6 w-full lg:w-1/2" label="Province/State" />
-          <select-input v-model="form.country" :error="form.errors.country" class="pb-8 pr-6 w-full lg:w-1/2" label="Country">
+          <textarea-input v-model="form.question" :error="form.errors.question" class="pb-8 pr-6 w-full" label="Question"/>
+          <select-input v-model="form.poll_id" :error="form.errors.poll_id" class="pb-8 pr-6 w-full" label="Poll">
             <option :value="null" />
-            <option value="CA">Canada</option>
-            <option value="US">United States</option>
+            <option v-for="poll in polls" :key="poll.id" :value="poll.id">Poll {{ poll.poll_id }} - {{ poll.title }}</option>
           </select-input>
-          <text-input v-model="form.postal_code" :error="form.errors.postal_code" class="pb-8 pr-6 w-full lg:w-1/2" label="Postal code" />
+          <text-input v-model="form.is_active" :error="form.errors.is_active" class="pb-8 pr-6 w-full lg:w-1/2" label="Active ?" />
         </div>
         <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
-          <loading-button :loading="form.processing" class="btn-indigo" type="submit">Create Organization</loading-button>
+          <loading-button :loading="form.processing" class="btn-indigo" type="submit">Create Poll Question</loading-button>
         </div>
       </form>
     </div>
@@ -33,6 +27,7 @@
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import Layout from '@/Shared/Layout'
 import TextInput from '@/Shared/TextInput'
+import TextareaInput from '@/Shared/TextareaInput'
 import SelectInput from '@/Shared/SelectInput'
 import LoadingButton from '@/Shared/LoadingButton'
 
@@ -41,28 +36,24 @@ export default {
     Head,
     Link,
     LoadingButton,
-    SelectInput,
     TextInput,
+    TextareaInput,
+    SelectInput,
   },
   layout: Layout,
   remember: 'form',
   data() {
     return {
       form: this.$inertia.form({
-        name: null,
-        email: null,
-        phone: null,
-        address: null,
-        city: null,
-        region: null,
-        country: null,
-        postal_code: null,
+            question: null,
+            is_active: null,
+            poll_id: null,
       }),
     }
   },
   methods: {
     store() {
-      this.form.post('/organizations')
+      this.form.post('/poll_questions')
     },
   },
 }
