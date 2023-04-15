@@ -59,7 +59,18 @@ class PollQuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Auth::user()->account->pollQuestions()->create(
+            Request::validate([
+                'question' => ['required', 'max:255'],
+                'is_active' => ['required', 'boolean'],
+                'poll_id' => [
+                    'required',
+                    Rule::exists('polls', 'id')->where(fn ($query) => $query->where('account_id', Auth::user()->account_id)),
+                ],
+            ])
+        );
+
+        return Redirect::route('poll_questions')->with('success', 'Poll question created successfully.');
     }
 
     /**
@@ -106,7 +117,7 @@ class PollQuestionController extends Controller
             ])
         );
 
-        return Redirect::back()->with('success', 'Poll question updated successfully. :>)');
+        return Redirect::back()->with('success', 'Poll question updated successfully.');
     }
 
     /**

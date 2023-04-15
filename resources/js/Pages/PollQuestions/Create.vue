@@ -11,7 +11,9 @@
           <textarea-input v-model="form.question" :error="form.errors.question" class="pb-8 pr-6 w-full" label="Question"/>
           <select-input v-model="form.poll_id" :error="form.errors.poll_id" class="pb-8 pr-6 w-full" label="Poll">
             <option :value="null" />
-            <option v-for="poll in polls" :key="poll.id" :value="poll.id">Poll {{ poll.poll_id }} - {{ poll.title }}</option>
+            <option v-for="poll in polls" :key="poll.id" :value="poll.id">
+              ({{ (poll.is_active) == '1' ? 'Active' : 'Closed'  }}) - {{ poll.title }}
+            </option>
           </select-input>
           <text-input v-model="form.is_active" :error="form.errors.is_active" class="pb-8 pr-6 w-full lg:w-1/2" label="Active ?" />
         </div>
@@ -42,6 +44,9 @@ export default {
   },
   layout: Layout,
   remember: 'form',
+  props: {
+    polls: Object,
+  },
   data() {
     return {
       form: this.$inertia.form({

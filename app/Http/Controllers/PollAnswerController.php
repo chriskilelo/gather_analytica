@@ -54,6 +54,28 @@ class PollAnswerController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        Auth::user()->account->pollAnswers()->create(
+            Request::validate([
+                'answer' => ['required', 'max:255'],
+                'is_active' => ['required', 'boolean'],
+                'poll_question_id' => [
+                    'required',
+                    Rule::exists('poll_questions', 'id')->where(fn ($query) => $query->where('account_id', Auth::user()->account_id)),
+                ],
+            ])
+        );
+
+        return Redirect::route('poll_answers')->with('success', 'Poll answer created successfully.');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\PollAnswer  $pollAnswer
@@ -66,7 +88,7 @@ class PollAnswerController extends Controller
                 'id' => $pollAnswer->id,
                 'account_id' => 1,
                 'answer' => $pollAnswer->answer,
-                'poll_question_id'=>$pollAnswer->poll_question_id,
+                'poll_question_id' => $pollAnswer->poll_question_id,
                 'is_active' => $pollAnswer->is_active,
                 'deleted_at' => $pollAnswer->deleted_at,
             ],
@@ -99,7 +121,7 @@ class PollAnswerController extends Controller
             ])
         );
 
-        return Redirect::back()->with('success', 'Poll answer updated. :>)');
+        return Redirect::back()->with('success', 'Poll answer updated successfully.');
     }
 
     /**
